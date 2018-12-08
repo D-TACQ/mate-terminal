@@ -25,21 +25,39 @@ namespace mate_terminal
                 TabPage new_tab = new TabPage();
 
                 new_tab.Location = new System.Drawing.Point(10, 48);
-                this.tabPage2.Name = "tabPage" + (tab + 1);
+                new_tab.Name = "tabPage" + (tab + 1);
                 new_tab.Size = new System.Drawing.Size(1424, 1044);
-                this.tabPage2.TabIndex = tab;
+                new_tab.TabIndex = tab;
                 new_tab.UseVisualStyleBackColor = true;
                 tabs.Add(new_tab);
+                RichTextBox richTextBox = new RichTextBox();
+                richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+                richTextBox.Location = new System.Drawing.Point(3, 3);
+                richTextBox.Name = "richTextBox" + (tab + 1);
+                richTextBox.Size = new System.Drawing.Size(1418, 1038);
+                richTextBox.TabIndex = tab;
+                new_tab.Controls.Add(richTextBox);
                 this.tabControl1.Controls.Add(new_tab);
             }
-
-            tabs[tab].Text = title;
+            TabPage tabPage = tabs[tab];
+            tabPage.Text = title;
+            foreach (Control control in tabPage.Controls)
+            {
+                Console.WriteLine(control.Name);
+                RichTextBox rtb = (RichTextBox)control;
+                rtb.Text = "pgmwashere this is " + tabPage.Text;
+            }
         }
         public Form1()
         {
             InitializeComponent();
             tabs.Add(this.tabPage1);
             tabs.Add(this.tabPage2);
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
