@@ -44,6 +44,27 @@ namespace mate_terminal
         {
             return "title:" + Title + " cmd:" + Cmd;  
         }
+        public string Exe()
+        {
+            string exe = Cmd.Split(' ')[0];
+            Console.WriteLine(exe);
+            return exe;
+        }
+        public string Args()
+        {
+            string args = "";
+            int ii = 0;
+            foreach (string arg in Cmd.Split(' '))
+            {
+                if (ii != 0)
+                {
+                    args = args + " " + arg;
+                }
+                ++ii;
+            }
+            Console.WriteLine(args);
+            return args;
+        }
     }
     static class Program
     {
@@ -133,13 +154,13 @@ namespace mate_terminal
         /*
          * --window-with-profile=Default --title=Job1 --cmd=dir --tab-with-profile=Default --title=Job2 --cmd=dir --tab-with-profile=Default --title=Job3 --cmd=dir
          * */
-        static void RunCmd(string cmd, RichTextBox rtb)
+        static void RunCmd(Tab tab, RichTextBox rtb)
         {
             ProcessCaller processCaller = new ProcessCaller(rtb);
             //processCaller.FileName = @"..\..\hello.bat";
-            processCaller.FileName = cmd;
+            processCaller.FileName = tab.Exe();
             processCaller.WorkingDirectory = ".";
-            processCaller.Arguments = "";
+            processCaller.Arguments = tab.Args();
             processCaller.StdErrReceived += new DataReceivedHandler(new RichTextBoxUpdater(rtb).writeStreamInfo);
             processCaller.StdOutReceived += new DataReceivedHandler(new RichTextBoxUpdater(rtb).writeStreamInfo);
             //processCaller.Completed += new EventHandler(processCompletedOrCanceled);
@@ -167,7 +188,7 @@ namespace mate_terminal
             int itab = 0;
             foreach (Tab tab in Tabs)
             {
-                RunCmd(tab.Cmd, form1.addTab(itab++, tab.Title, tab.Cmd));
+                RunCmd(tab, form1.addTab(itab++, tab.Title, tab.Cmd));
             }
             Application.Run(form1);
         }
