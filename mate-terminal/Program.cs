@@ -27,6 +27,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 
+using TestProcessCaller;
+
 namespace mate_terminal
 {
     class Tab
@@ -111,6 +113,45 @@ namespace mate_terminal
                 Console.WriteLine(tab);
             }
         }
+
+        /*public delegate void DataReceivedHandler(object sender,
+        DataReceivedEventArgs e);*/
+
+        class RichTextBoxUpdater
+        {
+            RichTextBox Rtb;
+            public RichTextBoxUpdater(RichTextBox rtb)
+            {
+                Rtb = rtb;
+            }
+            public void writeStreamInfo(object sender, TestProcessCaller.DataReceivedEventArgs e)
+            {
+                Rtb.AppendText(e.Text + Environment.NewLine);
+            }
+        }
+        
+        /*
+         * --window-with-profile=Default --title=Job1 --cmd=dir --tab-with-profile=Default --title=Job2 --cmd=dir --tab-with-profile=Default --title=Job3 --cmd=dir
+         * */
+        static void RunCmd(string cmd, RichTextBox rtb)
+        {
+            ProcessCaller processCaller = new ProcessCaller(rtb);
+            //processCaller.FileName = @"..\..\hello.bat";
+            processCaller.FileName = cmd;
+            processCaller.WorkingDirectory = ".";
+            processCaller.Arguments = "";
+            processCaller.StdErrReceived += new DataReceivedHandler(new RichTextBoxUpdater(rtb).writeStreamInfo);
+            processCaller.StdOutReceived += new DataReceivedHandler(new RichTextBoxUpdater(rtb).writeStreamInfo);
+            //processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+            //processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+            // processCaller.Failed += no event handler for this one, yet.
+
+            rtb.Text = "Started function.  Please stand by.." + Environment.NewLine;
+
+            // the following function starts a process and returns immediately,
+            // thus allowing the form to stay responsive.
+            processCaller.Start();
+        }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -126,7 +167,7 @@ namespace mate_terminal
             int itab = 0;
             foreach (Tab tab in Tabs)
             {
-                form1.addTab(itab++, tab.Title, tab.Cmd);
+                RunCmd(tab.Cmd, form1.addTab(itab++, tab.Title, tab.Cmd));
             }
             Application.Run(form1);
         }

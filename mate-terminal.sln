@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mate-terminal", "mate-terminal\mate-terminal.csproj", "{3220CD63-7869-4D41-9E36-14D37D159E8D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B9B1900D-C883-4243-97EB-BDCDAB9F402F}"
+	ProjectSection(SolutionItems) = preProject
+		mate-terminal\ProcessCaller.cs = mate-terminal\ProcessCaller.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

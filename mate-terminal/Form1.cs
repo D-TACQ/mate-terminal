@@ -18,7 +18,7 @@ namespace mate_terminal
 
         List<TabPage> tabs = new List<TabPage>();
 
-        public void addTab(int tab, string title, string cmd)
+        public RichTextBox addTab(int tab, string title, string cmd)
         {
             if (tab >= tabs.Count())
             {
@@ -41,12 +41,14 @@ namespace mate_terminal
             }
             TabPage tabPage = tabs[tab];
             tabPage.Text = title;
+            RichTextBox rtb = null;
             foreach (Control control in tabPage.Controls)
             {
                 Console.WriteLine(control.Name);
-                RichTextBox rtb = (RichTextBox)control;
+                rtb = (RichTextBox)control;
                 rtb.Text = "pgmwashere this is " + tabPage.Text;
             }
+            return rtb;
         }
         public Form1()
         {
