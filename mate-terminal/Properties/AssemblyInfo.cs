@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("mate-terminal")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("emulation of part of mate-terminal to run multiple processes in tab windows for logging")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("www.d-tacq.com")]
 [assembly: AssemblyProduct("mate-terminal")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

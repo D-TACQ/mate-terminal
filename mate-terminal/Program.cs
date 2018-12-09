@@ -184,7 +184,7 @@ namespace mate_terminal
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Form1 form1 = new Form1();
-            form1.Text = "mate-terminal";
+            form1.Text = "mate-terminal tribute";
             int itab = 0;
             foreach (Tab tab in Tabs)
             {
