@@ -111,7 +111,7 @@ namespace mate_terminal
                         }
                         break;
                     case ParseArgsState.PAS_CMD:
-                        if (arg.StartsWith("--cmd"))
+                        if (arg.StartsWith("--command"))
                         {
                             Tabs.Add(new Tab(title, arg.Split('=')[1]));
                             pas = ParseArgsState.PAS_TAB;
